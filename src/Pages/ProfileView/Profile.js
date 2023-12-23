@@ -10,6 +10,8 @@ function ProfileView() {
     ApiClient.get("profile").then((res) => {
       if (res.success) {
         setform(res?.data);
+      }else{
+        toast.error(res.message)
       }
     });
   }, []);
@@ -19,6 +21,8 @@ function ProfileView() {
     ApiClient.put("profile", form).then((res) => {
       if (res.success) {
         toast.success(res.message);
+      }else{
+        toast.error(res.message)
       }
     });
   };

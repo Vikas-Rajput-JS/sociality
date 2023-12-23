@@ -20,6 +20,8 @@ function Cards() {
       if (res.success) {
         setPost(res?.data);
         localStorage.removeItem("update");
+      }else{
+        toast.error(res.message)
       }
     });
   };

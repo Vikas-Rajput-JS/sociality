@@ -22,7 +22,10 @@ function PostSec() {
     ApiClient.get('profile').then((res)=>{
       if(res.success){
         console.log(res)
-        setform({...Form,user_id:res?.data?.id,name:res?.data?.name,image:res?.data?.image})
+        setimg(res?.data?.image)
+        setform({...Form,user_id:res?.data?.id,name:res?.data?.name})
+      }else{
+        toast.error(res.message)
       }
     })
   },[])
@@ -68,7 +71,7 @@ localStorage.setItem('update',res?.success)
             <div className="flex border-l border-gray-200">
               <button
                 onClick={() => toast.dismiss(t.id)}
-                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
               >
                 Close
               </button>
@@ -147,7 +150,7 @@ localStorage.setItem('update',res?.success)
           style={{ filter: `blur(${0})` }}
         >
           <div className="w-full flex items-center justify-center h-20">
-            <img className="bg-black rounded-full w-12" src={Form.image} alt="" />
+            <img className="bg-black rounded-full w-12" src={img} alt="" />
             <input value={Form?.caption}
               onChange={(e) => {
                 setform({ ...Form, caption: e.target.value });

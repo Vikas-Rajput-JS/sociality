@@ -8,6 +8,7 @@ import { GrSnapchat } from "react-icons/gr";
 import { TbMessage } from "react-icons/tb";
 import { useNavigate } from "react-router";
 import ApiClient from "../../Apis/ApiClient";
+import toast from "react-hot-toast";
 export default function TrendingSec() {
   const history = useNavigate()
 const[data,setData]=useState({})
@@ -17,6 +18,8 @@ const[data,setData]=useState({})
         console.log(res);
         setData(res?.data);
         // localStorage.setItem("id", res?.data?.id);
+      }else{
+        toast.error(res.message)
       }
     });
     

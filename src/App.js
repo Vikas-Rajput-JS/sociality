@@ -14,6 +14,7 @@ import ChangePass from './Pages/ForgetPassword/ChangePass';
 import { Toaster } from 'react-hot-toast';
 import LoadingBar from 'react-top-loading-bar';
 import ProfileView from './Pages/ProfileView/Profile';
+import Index from './Pages/ProfileView';
 
 function App() {
   
@@ -39,7 +40,8 @@ function App() {
 
 <Route path='/forgot-password' element={<SendOtp/>}></Route>
 <Route path='/change-password' element={<ChangePass/>}></Route>
-<Route path='/profile' element={<ProfileView/>}></Route>
+<Route path='/edit-profile' element={<ProfileView/>}></Route>
+<Route path='/profile' element={<Index/>}></Route>
 
 
   </Routes>
