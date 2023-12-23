@@ -1,4 +1,4 @@
  const environment = {
-    apiUrl :'http://localhost:5000/'
+    apiUrl :'https://sociality-app.onrender.com/'
 }
 export default environment;
