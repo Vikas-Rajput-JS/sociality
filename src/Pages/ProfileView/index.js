@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 function Index() {
   const [follow, setfollow] = useState(true);
   const [data, setData] = useState({});
+  const Navigate = useNavigate()
   const [AllUser, setUser] = useState([]);
   const [text, settext] = useState("All Users");
   const [section, setsection] = useState("home");
@@ -26,8 +27,10 @@ function Index() {
         console.log(res);
         setData(res?.data);
         localStorage.setItem("id", res?.data?.id);
-      }else{
+      }else if(res.code==500){
         toast.error(res.message)
+      }else{
+    toast.error(res.message)
       }
     });
     const GetPost = () => {
@@ -35,16 +38,20 @@ function Index() {
         if (res.success) {
           setPost(res?.data);
           localStorage.removeItem("update");
-        }else{
+        }else if(res.code==500){
             toast.error(res.message)
+          }else{
+        toast.error(res.message)
           }
       });
     };
     GetPost();
     ApiClient.get("getUser").then((res) => {
       if (res.success) {
-      } else{
+      } else if(res.code==500){
         toast.error(res.message)
+      }else{
+    toast.error(res.message)
       }
       
     });
@@ -76,9 +83,12 @@ function Index() {
       ApiClient.put("profile", { bannerImage: res?.data?.url }).then((res) => {
         if (res.success) {
           toast.success(res.message);
-        }else{
+        }else  if(res.code==500){
+            // Navigate('/login')
+          }else{
             toast.error(res.message)
           }
+         
       });
       // toast.success("Image Uploaded Successfully");
       // toast.custom((t) => (

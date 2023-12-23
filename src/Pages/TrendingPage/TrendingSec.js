@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import ApiClient from "../../Apis/ApiClient";
 import toast from "react-hot-toast";
 export default function TrendingSec() {
+  // const Navigate = useNavigate()
   const history = useNavigate()
 const[data,setData]=useState({})
   const GetData = () => {
@@ -18,6 +19,9 @@ const[data,setData]=useState({})
         console.log(res);
         setData(res?.data);
         // localStorage.setItem("id", res?.data?.id);
+      }else  if(res.code==500){
+        // localStorage.clear()
+        // history('/login')
       }else{
         toast.error(res.message)
       }

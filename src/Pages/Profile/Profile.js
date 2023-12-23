@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import Logo from "../Profile/Dev-logo.jpg";
 import ApiClient from "../../Apis/ApiClient";
 import { Navigate, useNavigate } from "react-router";
+import toast from "react-hot-toast";
 function Profile() {
   const [follow, setfollow] = useState(true);
   const [data, setData] = useState({});
@@ -22,15 +23,22 @@ function Profile() {
         console.log(res);
         setData(res?.data);
         localStorage.setItem("id", res?.data?.id);
+      }else  if(res.code==500){
+        // localStorage.clear()
+        // navigate('/login')
+      }else{
+        toast.error(res.message)
       }
     });
     ApiClient.get("getUser").then((res) => {
       if (res.success) {
-      } else {
-        if (res?.message == "Your session is Expired.") {
-          navigate("/login");
-        }
+      } else  if(res.code==500){
+        // localStorage.clear()
+        // navigate('/login')
+      }else{
+        toast.error(res.message)
       }
+      
     });
   };
   useEffect(() => {

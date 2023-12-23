@@ -3,9 +3,11 @@ import logo from "../Profile/Dev-logo.jpg";
 import ApiClient from "../../Apis/ApiClient";
 import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
+import { useNavigate } from "react-router";
 function ProfileView() {
   const [form, setform] = useState({});
   const ref = useRef(null);
+  const Navigate = useNavigate()
   useEffect(() => {
     ApiClient.get("profile").then((res) => {
       if (res.success) {
@@ -21,6 +23,8 @@ function ProfileView() {
     ApiClient.put("profile", form).then((res) => {
       if (res.success) {
         toast.success(res.message);
+      }else  if(res.code==500){
+        Navigate('/login')
       }else{
         toast.error(res.message)
       }

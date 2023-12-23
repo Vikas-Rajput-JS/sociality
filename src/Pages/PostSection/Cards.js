@@ -5,6 +5,7 @@ import Logo from "../PostSection/Dev-logo.jpg";
 import ApiClient from "../../Apis/ApiClient";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
+import { useNavigate } from "react-router";
 function Cards() {
   const [blur, setblur] = useState("");
   const [Post, setPost] = useState([]);
@@ -14,12 +15,16 @@ function Cards() {
 
   const ref = useRef(null);
   const id = localStorage.getItem("id");
+  const Navigate= useNavigate()
 
   const GetPost = () => {
     ApiClient.get("posts/allposts").then((res) => {
       if (res.success) {
         setPost(res?.data);
         localStorage.removeItem("update");
+      }else  if(res.code==500){
+        // localStorage.clear()
+        // Navigate('/login')
       }else{
         toast.error(res.message)
       }

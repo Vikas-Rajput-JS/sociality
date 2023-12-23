@@ -11,10 +11,12 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import ApiClient from "../../Apis/ApiClient";
+import { useNavigate } from "react-router";
 function PostSec() {
 
   const [Form, setform] = useState({});
   const [img, setimg] = useState("");
+  const Navigate = useNavigate()
 
 
   const ref = useRef(null);
@@ -24,6 +26,9 @@ function PostSec() {
         console.log(res)
         setimg(res?.data?.image)
         setform({...Form,user_id:res?.data?.id,name:res?.data?.name})
+      }else  if(res.code==500){
+        localStorage.clear()
+        Navigate('/login')
       }else{
         toast.error(res.message)
       }
