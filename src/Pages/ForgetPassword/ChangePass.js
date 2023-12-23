@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import OTPInput, { ResendOTP } from "otp-input-react";
 import LoadingBar from 'react-top-loading-bar';
 import ApiClient from '../../Apis/ApiClient';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 function ChangePass() {
     const [OTP, setOTP] = useState("");

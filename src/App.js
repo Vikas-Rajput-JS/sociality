@@ -22,16 +22,12 @@ function App() {
   const[loading,setloading]=useState(true)
   const key = localStorage.getItem('loading')
 
-  const ref = useRef(null)
-
 
   return (
 
    
     <div className="App w-full h-[100vh] flex items-center" style={{backgroundImage:'url(https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3917.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'100% 100%'}}>
-          <LoadingBar shadow={true} height={3} color="red" ref={ref} />
-      {/* {
-        !loading?<img className="w-[100%] h-[100vh]" src="https://superstorefinder.net/support/wp-content/uploads/2018/01/elastic.gif" alt="" />: */}
+     
   <Routes>
   <Route path='/' element={<Signup/>}></Route>
   <Route path='/login' element={<Login/>}></Route>
@@ -45,9 +41,8 @@ function App() {
 
 
   </Routes>
-  
-  {/* } */}
-  <Toaster/>
+
+<Toaster/>
     </div>
   );
 }

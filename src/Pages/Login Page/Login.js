@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import ApiClient from "../../Apis/ApiClient";
 import LoadingBar from "react-top-loading-bar";
 function Login() {
@@ -27,7 +27,7 @@ function Login() {
     ApiClient.post("login", form).then((res) => {
       if (res?.success) {
         ref.current.complete();
-        toast.success(res.message);
+        // toast.success(res.message);
 
         localStorage.setItem("token", res?.token);
 
@@ -41,8 +41,8 @@ function Login() {
 
   return (
     <>
-      <LoadingBar shadow={true} height={3} color="yellow" ref={ref} />
       <div className="w-full h-screen flex justify-center items-center">
+      <LoadingBar shadow={true} height={3} color="yellow" ref={ref} />
         <section class="bg-gray-900 dark:bg-gray-900 w-full">
           <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a
@@ -70,6 +70,7 @@ function Login() {
                       Your Email
                     </label>
                     <input
+                    required
                       value={form?.email}
                       onChange={(e) => {
                         setform({ ...form, email: e.target.value });
@@ -79,7 +80,7 @@ function Login() {
                       id="email"
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
-                      required=""
+                     
                     />
                   </div>
                   <div>
@@ -100,7 +101,7 @@ function Login() {
                         id="password"
                         placeholder="••••••••"
                         class="bg-gray-50 w-full border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
+                        required="true"
                       />
                       {eye == "password" ? (
                         <svg

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import toast, { ToastBar, Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar'

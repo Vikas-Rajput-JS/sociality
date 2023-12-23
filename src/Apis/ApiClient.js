@@ -7,10 +7,9 @@
 import axios from 'axios';
 import querystring from 'querystring';
 import { setAuthorizationToken } from '../Auth/Auth';
-
+import {  toast } from 'react-toastify';
 
 import environment from '../Environment/environment';
-import toast from 'react-hot-toast';
 
 
 

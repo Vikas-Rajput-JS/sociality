@@ -3,7 +3,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegCommentDots, FaHeart, FaShare } from "react-icons/fa";
 import Logo from "../PostSection/Dev-logo.jpg";
 import ApiClient from "../../Apis/ApiClient";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate } from "react-router";
 function Cards() {

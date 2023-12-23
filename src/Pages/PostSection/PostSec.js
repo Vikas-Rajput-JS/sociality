@@ -6,7 +6,7 @@ import { TfiLocationPin } from "react-icons/tfi";
 
 import { BsCalendar2Date } from "react-icons/bs";
 import Cards from "./Cards";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
