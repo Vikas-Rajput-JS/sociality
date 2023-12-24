@@ -96,8 +96,9 @@ const HandleSubmit = (e)=>{
                 </div>
                 <button type="submit" class="w-full bg-yellow-400 py-1 px-1 font-semibold hover:bg-yellow-500 rounded-md shadow-lg">Create an account</button>
                 <p class="text-sm  text-gray-900 dark:text-gray-400">
-                  Already have an account? <a href="/login" class="font-medium text-black hover:underline dark:text-primary-500" onClick={()=>{
+                  Already have an account? <a  class="font-medium cursor-pointer text-black hover:underline dark:text-primary-500" onClick={()=>{
                     ref.current.staticStart()
+                    Navigate('/login')
                     ref.current.complete()
                   }}>Login here</a>
                 </p>

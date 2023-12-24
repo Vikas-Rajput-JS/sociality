@@ -15,18 +15,18 @@ function Cards() {
 
   const ref = useRef(null);
   const id = localStorage.getItem("id");
-  const Navigate= useNavigate()
+  const Navigate = useNavigate();
 
   const GetPost = () => {
     ApiClient.get("posts/allposts").then((res) => {
       if (res.success) {
         setPost(res?.data);
         localStorage.removeItem("update");
-      }else  if(res.code==500){
+      } else if (res.code == 500) {
         // localStorage.clear()
         // Navigate('/login')
-      }else{
-        toast.error(res.message)
+      } else {
+        toast.error(res.message);
       }
     });
   };
@@ -52,12 +52,14 @@ function Cards() {
   return (
     <div
       style={{ filter: `blur(${blur})` }}
-      className="w-full flex flex-col mt-[16vh] "
+      className="lg:w-full flex flex-col mt-[16vh] "
     >
       <LoadingBar shadow={true} height={3} color="red" ref={ref} />
       {Post.map((item, index) => {
         return (
-          <div  className={` ${item.id} w-full bg-white h-[74vh]  shadow-lg  flex flex-col  items-center  rounded-xl mt-5 `}>
+          <div
+            className={` ${item.id} w-full bg-white h-[74vh]  shadow-lg  flex flex-col  items-center  rounded-xl mt-5 `}
+          >
             <div className="w-full flex mt-1 items-center">
               <img
                 className="rounded-full  w-10 shadow-2xl  shadow-black ml-6"
@@ -194,7 +196,6 @@ function Cards() {
         <h1 className='text-sm text-zinc-400 ml-3 mt-1 '>Welcome To Developer's Zone</h1>
       </div>
     </div> */}
-   
     </div>
   );
 }

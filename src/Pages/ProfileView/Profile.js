@@ -84,7 +84,7 @@ function ProfileView() {
 
   return (
     <>
-       {/* <LoadingBar shadow={true} height={3} color="red" ref={ref} /> */}
+       <LoadingBar shadow={true} height={3} color="red" ref={ref} />
       <nav class="bg-white border-gray-200 dark:bg-gray-900 absolute top-0 w-full">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a

@@ -13,45 +13,46 @@ import LoadingBar from "react-top-loading-bar";
 import ApiClient from "../../Apis/ApiClient";
 import { useNavigate } from "react-router";
 function PostSec() {
-
   const [Form, setform] = useState({});
   const [img, setimg] = useState("");
-  const Navigate = useNavigate()
-
+  const Navigate = useNavigate();
 
   const ref = useRef(null);
-  useEffect(()=>{
-    ApiClient.get('profile').then((res)=>{
-      if(res.success){
-        console.log(res)
-        setimg(res?.data?.image)
-        setform({...Form,user_id:res?.data?.id,name:res?.data?.name})
-      }else  if(res.code==500){
-        localStorage.clear()
-        Navigate('/login')
-      }else{
-        toast.error(res.message)
+  useEffect(() => {
+    ApiClient.get("profile").then((res) => {
+      if (res.success) {
+        console.log(res);
+        setimg(res?.data?.image);
+        setform({ ...Form, user_id: res?.data?.id, name: res?.data?.name });
+      } else if (res.code == 500) {
+        localStorage.clear();
+        Navigate("/login");
+      } else {
+        toast.error(res.message);
       }
-    })
-  },[])
+    });
+  }, []);
   function OpenFile() {
-
     document.getElementById("file_input").click();
   }
 
-
   const HandleSubmit = () => {
     ref.current.staticStart();
-    ApiClient.post("posts/create-post", {caption:Form?.caption,name:Form?.name,image:Form?.image,user_id:Form?.user_id}).then((res) => {
+    ApiClient.post("posts/create-post", {
+      caption: Form?.caption,
+      name: Form?.name,
+      image: Form?.image,
+      user_id: Form?.user_id,
+    }).then((res) => {
       if (res.success) {
-        toast.success(res?.message)
+        toast.success(res?.message);
         ref.current.complete();
-localStorage.setItem('update',res?.success)
+        localStorage.setItem("update", res?.success);
 
         toast.custom((t) => (
           <div
             className={`${
-              t.visible ? 'animate-enter' : 'animate-leave'
+              t.visible ? "animate-enter" : "animate-leave"
             } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
           >
             <div className="flex-1 w-0 p-4">
@@ -67,9 +68,7 @@ localStorage.setItem('update',res?.success)
                   <p className="text-sm font-medium text-gray-900">
                     {Form?.name}
                   </p>
-                  <p className="mt-1 text-sm text-gray-500">
-                   {Form?.caption}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-500">{Form?.caption}</p>
                 </div>
               </div>
             </div>
@@ -82,10 +81,9 @@ localStorage.setItem('update',res?.success)
               </button>
             </div>
           </div>
-        ))
-        setform({...Form,caption:''})
+        ));
+        setform({ ...Form, caption: "" });
       }
-    
     });
   };
 
@@ -110,7 +108,7 @@ localStorage.setItem('update',res?.success)
     );
     const res = await UploadImage.json();
     console.log(res);
-   
+
     if (res.success) {
       ref.current.complete();
       setform({ ...Form, image: res?.data?.url });
@@ -141,7 +139,7 @@ localStorage.setItem('update',res?.success)
             </button>
           </div>
         </div>
-      )); 
+      ));
     }
   };
 
@@ -149,14 +147,15 @@ localStorage.setItem('update',res?.success)
     <>
       <LoadingBar shadow={true} height={3} color="red" ref={ref} />
 
-      <div className="w-[54%] h-[97vh]  overflow-auto scrollbar-hide  bg-transparent shadow-xl shadow-zinc-500 rounded-lg ml-2">
+      <div className="w-[100%] lg:w-[54%] h-[97vh]  lg:overflow-auto lg:scrollbar-hide  bg-transparent shadow-xl shadow-zinc-500 rounded-lg ml-2">
         <div
-          className=" fixed w-[53%] z-20  bg-slate-100 h-[18vh] rounded-lg shadow-lg flex flex-col "
+          className=" lg:fixed w-[100%] lg:w-[53%] z-20  bg-slate-100 h-[18vh] rounded-lg shadow-lg flex flex-col "
           style={{ filter: `blur(${0})` }}
         >
-          <div className="w-full flex items-center justify-center h-20">
-            <img className="bg-black rounded-full w-12" src={img} alt="" />
-            <input value={Form?.caption}
+          <div className="w-[100%] flex items-center justify-center h-20">
+            <img className="bg-black rounded-full w-12 h-12" src={img} alt="" />
+            <input
+              value={Form?.caption}
               onChange={(e) => {
                 setform({ ...Form, caption: e.target.value });
               }}
@@ -167,7 +166,6 @@ localStorage.setItem('update',res?.success)
             <input
               className="hidden"
               type="file"
-              
               name=""
               id="file_input"
               onChange={(e) => {
@@ -216,8 +214,6 @@ localStorage.setItem('update',res?.success)
           </div>
         </div>
         <Cards />
-
-      
       </div>
 
       {/* <div className="absolute top-[25vh] left-[30%]" style={{display:`${display}`}}>

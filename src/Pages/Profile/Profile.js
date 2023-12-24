@@ -48,9 +48,9 @@ function Profile() {
   console.log(data);
 
   return (
-    <div className="w-[23%] h-[98vh] ml-3 shadow-gray-500 items-center flex flex-col justify-start shadow-2xl rounded-2xl">
+    <div className="w-[100%] lg:w-[23%] l h-[98vh] ml-3 shadow-gray-500 items-center flex flex-col justify-start shadow-2xl rounded-2xl">
       <div className="flex justify-around mt-2 w-full">
-        <img className="bg-black rounded-full w-12" src={data?.image} alt="" />
+        <img className="bg-black rounded-full h-12 w-12" src={data?.image} alt="" />
         <div className="flex bg-[#cecece94] w-[70%] rounded-xl py-1">
           <input
             className="w-44 rounded-lg py-2 bg-[#cecece2c] text-sm border-none focus:border-none placeholder:text-sm px-4 text-black "
@@ -73,7 +73,7 @@ function Profile() {
         </div>
         <div className="w-full flex justify-center flex-col items-center text-black">
           <img
-            className="rounded-full w-16 shadow-2xl shadow-black"
+            className="rounded-full w-24 h-24 shadow-2xl shadow-black"
             src={data.image}
             alt=""
           />

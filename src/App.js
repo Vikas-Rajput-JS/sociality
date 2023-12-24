@@ -26,7 +26,7 @@ function App() {
   return (
 
    
-    <div className="App w-full h-[100vh] flex items-center" style={{backgroundImage:'url(https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3917.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'100% 100%'}}>
+    <div className="App w-full h-[100vh] flex items-center  lg:flex-row flex-col" style={{backgroundImage:'url(https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3917.jpg)',backgroundRepeat:'no-repeat',backgroundSize:'100% 100%'}}>
      
   <Routes>
   <Route path='/' element={<Signup/>}></Route>

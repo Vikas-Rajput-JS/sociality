@@ -190,10 +190,10 @@ function Login() {
                   <p class="text-sm  text-black dark:text-gray-400">
                     Don’t have an account yet?{" "}
                     <a
-                      href="/"
-                      class="font-medium text-primary-600 hover:underline dark:text-black"
+                      class="font-medium cursor-pointer text-primary-600 hover:underline dark:text-black"
                       onClick={() => {
                         ref.current.staticStart();
+                        Navigate('/')
                         ref.current.complete();
                       }}
                     >
