@@ -73,7 +73,7 @@ function Profile() {
         </div>
         <div className="w-full flex justify-center flex-col items-center text-black">
           <img
-            className="rounded-full w-24 h-24 shadow-2xl shadow-black"
+            className="rounded-full w-20 h-20 shadow-2xl shadow-black"
             src={data.image}
             alt=""
           />

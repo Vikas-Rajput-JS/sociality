@@ -96,7 +96,7 @@ function Cards() {
                   onClick={() => {
                     DeletePost(item.id);
                   }}
-                  class="h-8 w-8 text-red-500 mr-5"
+                  class="h-8 w-8 text-red-500 mr-5 cursor-pointer"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"

@@ -236,15 +236,15 @@ function ProfileView() {
         </div>
       </nav>
       <div className="flex w-[100%] justify-center items-center">
-        <div className="grid grid-cols-5 gap-8 justify-center flex w-[90%]">
-          <div className="col-span-5 xl:col-span-3 rounded-xl">
+        <div className="grid grid-cols-5 gap-8 justify-center flex w-[90%] justify-between items-center">
+          <div className="col-span-5 xl:col-span-3 rounded-xl   ">
             <div className="rounded-xl shadow-2xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
                   Personal Information
                 </h3>
               </div>
-              <div className="p-7 rounded-md">
+              <div className="p-7 rounded-md flex">
                 <form onSubmit={HandleSubmit}>
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                     <div className="w-full sm:w-1/2">
@@ -401,7 +401,7 @@ function ProfileView() {
                   <div className="flex justify-end gap-4.5">
                     <button
                       className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                      type="submit"
+                    type="reset"
                     >
                       Cancel
                     </button>
@@ -499,8 +499,9 @@ function ProfileView() {
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-4.5">
+                  <div className="flex justify-end gap-4.5 mt-5">
                     <button
+                    type="reset"
                       className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
                   
                     >
