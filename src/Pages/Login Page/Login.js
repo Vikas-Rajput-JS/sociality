@@ -108,7 +108,7 @@ function Login() {
                           onClick={() => {
                             setEye("text");
                           }}
-                          class="h-8 w-8 ml-3 text-red-500 absolute top-1 right-0"
+                          class="h-8 w-8 ml-3 text-red-500 absolute top-2 right-0"
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
