@@ -147,7 +147,7 @@ function PostSec() {
     <>
       <LoadingBar shadow={true} height={3} color="red" ref={ref} />
 
-      <div className="w-[100%] lg:w-[54%] h-[97vh]  lg:overflow-auto lg:scrollbar-hide  bg-transparent shadow-xl shadow-zinc-500 rounded-lg ml-2">
+      <div className="w-[100%] lg:w-[54%] h-[97vh]  lg:overflow-auto lg:scrollbar-hide scrollbar-hide  bg-transparent shadow-xl shadow-zinc-500 rounded-lg ml-2">
         <div
           className=" lg:fixed w-[100%] lg:w-[53%] z-20  bg-slate-100 h-[18vh] rounded-lg shadow-lg flex flex-col "
           style={{ filter: `blur(${0})` }}

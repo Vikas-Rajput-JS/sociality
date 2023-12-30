@@ -15,14 +15,38 @@ import { Toaster } from 'react-hot-toast';
 import LoadingBar from 'react-top-loading-bar';
 import ProfileView from './Pages/ProfileView/Profile';
 import Index from './Pages/ProfileView';
+import Plan from './Pages/Plan/Plan';
+import Chat from './Pages/Chat/Chat';
+import io from 'socket.io-client'
+import ApiClient from './Apis/ApiClient';
+const socket  = io.connect('http://localhost:3300')
+
+
+
 
 function App() {
-  
+  const[user,setUser] = useState({})
   const Navigate = useNavigate()
   const[loading,setloading]=useState(true)
   const key = localStorage.getItem('loading')
+  let  token = localStorage.getItem('token')
+  const getuser = ()=>{
+  ApiClient.get('profile').then((res)=>{
+    if(res.success){
+setUser(res.data)
+    }
+  })
+ }
+ socket.emit('join_room',{name:user.name,image:user.image,id:1234})
 
+ useEffect(()=>{
+  if(token){
 
+    getuser()
+  }
+ },[token])
+
+  
   return (
 
    
@@ -37,6 +61,8 @@ function App() {
 <Route path='/forgot-password' element={<SendOtp/>}></Route>
 <Route path='/change-password' element={<ChangePass/>}></Route>
 <Route path='/edit-profile' element={<ProfileView/>}></Route>
+<Route path='/plans' element={<Plan/>}></Route>
+<Route path='/chat' element={<Chat socket={socket} room={1234} />}></Route>
 <Route path='/profile' element={<Index/>}></Route>
 
 

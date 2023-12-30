@@ -58,7 +58,7 @@ function Cards() {
       {Post.map((item, index) => {
         return (
           <div
-            className={` ${item.id} w-full bg-white h-[74vh]  shadow-lg  flex flex-col  items-center  rounded-xl mt-5 `}
+            className={` ${item.id} w-full bg-white h-[74vh]   shadow-lg  flex flex-col  items-center  rounded-xl mt-5 `}
           >
             <div className="w-full flex mt-1 items-center">
               <img

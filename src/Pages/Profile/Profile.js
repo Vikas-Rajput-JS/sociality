@@ -50,7 +50,72 @@ function Profile() {
   return (
     <div className="w-[100%] lg:w-[23%] l h-[98vh] ml-3 shadow-gray-500 items-center flex flex-col justify-start shadow-2xl rounded-2xl">
       <div className="flex justify-around mt-2 w-full">
-        <img className="bg-black rounded-full h-12 w-12" src={data?.image} alt="" />
+      <button
+          id="dropdownUserAvatarButton"
+          data-dropdown-toggle="dropdownAvatar"
+          class="flex text-sm bg-gray-800  rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          type="button"
+        >
+          <span class="sr-only">Open user menu</span>
+          <img
+            class="w-12 h-12 rounded-full"
+            src={data?.image}
+            alt="user photo"
+            onClick={()=>{
+              navigate('/chat')
+            }}
+          />
+        </button>
+
+        <div
+          id="dropdownAvatar"
+          class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        >
+          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div>{data?.name}</div>
+            <div class="font-medium truncate">{data?.email}</div>
+          </div>
+          <ul
+            className="py-2 text-sm text-gray-700 dark:text-gray-200 z-10"
+            aria-labelledby="dropdownUserAvatarButton"
+          >
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a
+                href="/profile"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+                Settings
+              </a>
+            </li>
+            <li>
+              <a
+                href="/plans"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+                Plans
+              </a>
+            </li>
+          </ul>
+          <div class="py-2">
+            <a
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+              class="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            >
+              Sign out
+            </a>
+          </div>
+        </div>
         <div className="flex bg-[#cecece94] w-[70%] rounded-xl py-1">
           <input
             className="w-44 rounded-lg py-2 bg-[#cecece2c] text-sm border-none focus:border-none placeholder:text-sm px-4 text-black "

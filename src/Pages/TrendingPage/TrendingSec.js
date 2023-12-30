@@ -114,10 +114,10 @@ export default function TrendingSec() {
             </li>
             <li>
               <a
-                href="#"
+                href="/plans"
                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Earnings
+                Plans
               </a>
             </li>
           </ul>
@@ -136,7 +136,9 @@ export default function TrendingSec() {
         <HiHome className="cursor-pointer" size={25} color="yellow" />
         {/* <SlSettings className="cursor-pointer" size={25} /> */}
         <GrSnapchat className="cursor-pointer" size={25} color="yellow" />
-        <TbMessage className="cursor-pointer" size={25} />
+        <TbMessage className="cursor-pointer" onClick={()=>{
+          history('/chat')
+        }} size={25} />
       </div>
       <div className="w-[97%] shadow-2xl rounded-xl flex flex-col items-start shadow-black h-[70vh] mt-3">
         <h1 className="text-xl ml-2 mt-2">Trending For You</h1>
