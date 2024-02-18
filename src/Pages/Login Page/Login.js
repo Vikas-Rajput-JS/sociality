@@ -95,7 +95,7 @@ function Login() {
         <LoadingBar shadow={true} height={3} color="yellow" ref={ref} />
         <section class="bg-gray-900 dark:bg-gray-900 w-full">
           <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a
+            <button
               
               class="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white"
             >
@@ -105,7 +105,7 @@ function Login() {
                 alt=""
               />
               SociaLity
-            </a>
+            </button>
             <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-700 dark:border-gray-700">
               <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1
