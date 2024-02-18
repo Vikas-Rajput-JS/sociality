@@ -63,7 +63,7 @@ function Cards() {
             <div className="w-full flex mt-1 items-center">
               <img
                 className="rounded-full  w-10 shadow-2xl  shadow-black ml-6"
-                src={Logo}
+                src={item?.addedBy?.image}
                 alt=""
               />
               <h1 className="ml-2">{item.name}</h1>
