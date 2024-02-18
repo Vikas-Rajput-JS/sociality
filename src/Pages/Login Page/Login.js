@@ -27,7 +27,7 @@ function Login() {
     ApiClient.post("login", form).then((res) => {
       if (res?.success) {
         ref.current.complete();
-        // toast.success(res.message);
+        toast.success(res.message);
 
         localStorage.setItem("token", res?.token);
 
@@ -50,11 +50,11 @@ function Login() {
               class="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white"
             >
               <img
-                class="w-8 h-8 mr-2"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                class="w-12 h-12 mr-2 rounded-full"
+                src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
                 alt="logo"
               />
-              CodeDera
+              SociaLity
             </a>
             <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-700 dark:border-gray-700">
               <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

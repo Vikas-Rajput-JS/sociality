@@ -19,7 +19,7 @@ import Plan from './Pages/Plan/Plan';
 import Chat from './Pages/Chat/Chat';
 import io from 'socket.io-client'
 import ApiClient from './Apis/ApiClient';
-const socket  = io.connect('http://localhost:3300')
+// const socket  = io.connect('http://localhost:3300')
 
 
 
@@ -37,7 +37,7 @@ setUser(res.data)
     }
   })
  }
- socket.emit('join_room',{name:user.name,image:user.image,id:1234})
+//  socket.emit('join_room',{name:user.name,image:user.image,id:1234})
 
  useEffect(()=>{
   if(token){
@@ -62,7 +62,7 @@ setUser(res.data)
 <Route path='/change-password' element={<ChangePass/>}></Route>
 <Route path='/edit-profile' element={<ProfileView/>}></Route>
 <Route path='/plans' element={<Plan/>}></Route>
-<Route path='/chat' element={<Chat socket={socket} room={1234} />}></Route>
+{/* <Route path='/chat' element={<Chat socket={socket} room={1234} />}></Route> */}
 <Route path='/profile' element={<Index/>}></Route>
 
 
