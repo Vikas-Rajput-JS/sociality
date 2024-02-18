@@ -317,9 +317,9 @@ export default function TrendingSec() {
                           title: "Sweet!",
                           text: "Modal with a custom image.",
                           imageUrl: itm?.image,
-                          imageWidth: 400,
+                          imsageWidth: 400,
                           imageHeight: 200,
-                          imageAlt: "Custom image"
+                          imageAlt: ""
                         });
                       }} class="text-sm font-medium text-gray-900 truncate dark:text-white">
                               {itm?.title}
