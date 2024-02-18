@@ -102,7 +102,7 @@ function Login() {
               <img
                 class="w-12 h-12 mr-2 rounded-full"
                 src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
-                alt="logo"
+                alt=""
               />
               SociaLity
             </a>

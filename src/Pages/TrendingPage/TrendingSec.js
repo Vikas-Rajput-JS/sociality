@@ -174,7 +174,7 @@ export default function TrendingSec() {
             <img
               class="w-8 h-8 rounded-full"
               src={data?.image}
-              alt="user photo"
+              alt=""
             />
           </button>
 
@@ -263,7 +263,7 @@ export default function TrendingSec() {
                       <img
                         class="w-8 h-8 rounded-full"
                         src={data?.image}
-                        alt="Neil image"
+                        alt=""
                       />
                     </div>
                     <div class="flex-1 min-w-0 ms-4">
@@ -277,7 +277,7 @@ export default function TrendingSec() {
                               imageUrl: Story[0]?.image,
                               imageWidth: 400,
                               imageHeight: 200,
-                              imageAlt: "Custom image"
+                              imageAlt: ""
                             });
                           }}>View Story</p>
                           : <p>Share Story</p>}
@@ -308,7 +308,7 @@ export default function TrendingSec() {
                               <img
                                 class="w-8 h-8 rounded-full"
                                 src={itm?.addedBy?.image}
-                                alt="Neil image"
+                                alt=""
                               />
                             </div>
                             <div class="flex-1 min-w-0 ms-4">

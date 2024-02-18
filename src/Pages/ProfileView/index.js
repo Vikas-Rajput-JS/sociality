@@ -134,7 +134,7 @@ function Index() {
             <img
               src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
               class="h-8"
-              alt="Flowbite Logo"
+              alt=""
             />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               SociaLity
@@ -153,7 +153,7 @@ function Index() {
               <img
                 className="w-12 h-12 shadow-2xl shadow-black border-x-1 rounded-full"
                 src={data?.image}
-                alt="user photo"
+                alt=""
               />
             </button>
 
@@ -335,7 +335,7 @@ function Index() {
                 <img
                   class="w-full h-[25vh]"
                   src={itm?.image}
-                  alt="Sunset in the mountains"
+                  alt=""
                 />
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">Vikas Rajput</div>

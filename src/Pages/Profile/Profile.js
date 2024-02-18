@@ -60,7 +60,7 @@ function Profile() {
           <img
             class="w-12 h-12 rounded-full"
             src={data?.image}
-            alt="user photo"
+            alt=""
             onClick={()=>{
               navigate('/chat')
             }}

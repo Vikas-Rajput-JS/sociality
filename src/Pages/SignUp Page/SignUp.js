@@ -50,7 +50,7 @@ const HandleSubmit = (e)=>{
           <img
                 class="w-12 h-12 mr-2 rounded-full"
                 src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
-                alt="logo"
+                alt=""
               />            SociaLity
           </a>
           <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
