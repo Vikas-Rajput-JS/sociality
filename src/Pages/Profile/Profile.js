@@ -81,15 +81,19 @@ function Profile() {
           >
             <li>
               <a
-                href="#"
+               onClick={()=>{
+                navigate('/change-password')
+               }}
                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Dashboard
+                Change Password
               </a>
             </li>
             <li>
               <a
-                href="/profile"
+              onClick={()=>{
+                navigate('/edit-profile')
+              }}
                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Settings
@@ -132,7 +136,7 @@ function Profile() {
         <div className="w-full h-[10vh]">
           <img
             className="w-full h-[17vh] rounded-xl"
-            src="https://us.123rf.com/450wm/haiderali886/haiderali8862306/haiderali886230601002/207194761-blue-flag-atop-mountain-summit-majestic-heights-and-achievement.jpg?ver=6"
+            src={data?.bannerImage}
             alt=""
           />
         </div>
@@ -180,6 +184,7 @@ function Profile() {
             <h1 className=" text-black text-xs ">Posts</h1>
           </div>
         </div>
+       
         {/* <div className="w-[92%] bg-black h-[1px] ml-3 mt-2"></div> */}
       </div>
       <div className="w-full h-auto overflow-auto scrollbar-hide mt-5 flex flex-col items-start ">

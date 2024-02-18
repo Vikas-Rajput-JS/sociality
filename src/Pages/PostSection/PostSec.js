@@ -100,7 +100,7 @@ function PostSec() {
     form.append("image", file[0]);
 
     const UploadImage = await fetch(
-      "https://api.imgbb.com/1/upload?expiration=600&key=81e51e4b5abab8382e2f6561ba765ef8",
+      "https://api.imgbb.com/1/upload?key=81e51e4b5abab8382e2f6561ba765ef8",
       {
         method: "post",
         body: form,

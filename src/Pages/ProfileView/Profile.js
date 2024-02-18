@@ -92,12 +92,12 @@ function ProfileView() {
             class="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
+              src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
               class="h-8"
               alt="Flowbite Logo"
             />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              SociaLity
             </span>
           </a>
           <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

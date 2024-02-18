@@ -24,7 +24,7 @@ const handleError = (err, hideError) => {
     let message = ''
     if (err) {
         if (err && err.error && err.error.code == 401) {
-            localStorage.removeItem("persist:admin-app")
+            // localStorage.removeItem("persist:admin-app")
             localStorage.removeItem("token")
             // methodModel.route('/')
         }
@@ -32,7 +32,10 @@ const handleError = (err, hideError) => {
         if (!message) message = err.message
         if (!message) message = 'Server Error'
     }
-    if (!hideError) toast.error(message);
+    if (!hideError){
+        
+    }
+    //  toast.error(message);
 }
 
 class ApiClient {
