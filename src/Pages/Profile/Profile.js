@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Logo from "../Profile/Dev-logo.jpg";
 import ApiClient from "../../Apis/ApiClient";
 import { Navigate, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import LoadingBar from "react-top-loading-bar";
 function Profile() {
   const [follow, setfollow] = useState(true);
   const [data, setData] = useState({});
@@ -15,13 +16,15 @@ function Profile() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [Followers, setFollowers] = useState([]);
-
+  const ref = useRef(null);
   const [length, setlength] = useState(0);
   const GetData = () => {
+    ref.current.staticStart();
     ApiClient.get("profile").then((res) => {
       if (res.success) {
         console.log(res);
         setData(res?.data);
+
         localStorage.setItem("id", res?.data?.id);
       }else  if(res.code==500){
         // localStorage.clear()
@@ -29,6 +32,7 @@ function Profile() {
       }else{
         toast.error(res.message)
       }
+      ref.current.complete();
     });
     ApiClient.get("getUser").then((res) => {
       if (res.success) {
@@ -42,6 +46,7 @@ function Profile() {
     });
   };
   useEffect(() => {
+    
     GetData();
   }, []);
 
@@ -49,6 +54,7 @@ function Profile() {
 
   return (
     <div className="w-[100%] lg:w-[23%] l h-[98vh] ml-3 shadow-gray-500 items-center flex flex-col justify-start shadow-2xl rounded-2xl">
+      <LoadingBar shadow={true} height={3} color="red" ref={ref} />
       <div className="flex justify-around mt-2 w-full">
       <button
           id="dropdownUserAvatarButton"

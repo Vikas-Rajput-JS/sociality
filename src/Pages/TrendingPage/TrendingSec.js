@@ -136,7 +136,7 @@ export default function TrendingSec() {
         <HiHome className="cursor-pointer" size={25} color="yellow" />
         {/* <SlSettings className="cursor-pointer" size={25} /> */}
         <GrSnapchat className="cursor-pointer" size={25} color="yellow" />
-        <TbMessage className="cursor-pointer" onClick={()=>{
+        <TbMessage className="cursor-pointer" onClick={() => {
           history('/chat')
         }} size={25} />
       </div>

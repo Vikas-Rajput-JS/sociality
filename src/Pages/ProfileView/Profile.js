@@ -9,12 +9,14 @@ function ProfileView() {
   const ref = useRef(null);
   const Navigate = useNavigate()
   useEffect(() => {
+    ref.current.staticStart();
     ApiClient.get("profile").then((res) => {
       if (res.success) {
         setform(res?.data);
       }else{
         toast.error(res.message)
       }
+      ref.current.complete();
     });
   }, []);
 

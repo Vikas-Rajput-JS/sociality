@@ -12,10 +12,18 @@ function Cards() {
   const [likebtn, setlike] = useState(false);
   const [loading, setloading] = useState(false);
   const key = localStorage.getItem("update");
-
+const[data,setdata] = useState({})
   const ref = useRef(null);
   const id = localStorage.getItem("id");
   const Navigate = useNavigate();
+
+const GetProfile = ()=>{
+  ApiClient.get('profile').then((res)=>{
+    if(res.success){
+setdata(res?.data)
+    }
+  })
+}
 
   const GetPost = () => {
     ApiClient.get("posts/allposts").then((res) => {
@@ -63,7 +71,7 @@ function Cards() {
             <div className="w-full flex mt-1 items-center">
               <img
                 className="rounded-full  w-10 shadow-2xl  shadow-black ml-6"
-                src={Logo}
+                src={item?.user_id?.image || Logo}
                 alt=""
               />
               <h1 className="ml-2">{item.name}</h1>
@@ -90,7 +98,13 @@ function Cards() {
                 <FaShare cursor={"pointer"} size={23} />
               </div>
             </div>
-            <div className="flex justify-end items-center w-full">
+            <div className="flex justify-end items-center w-full mt-2">
+              <div className="w-full flex flex-col  justify-start items-start">
+                <h1 className="text-sm text-zinc-400 ml-3 ">345 Likes</h1>
+                <h1 className="text-md text-black-400 ml-3 mt-1 ">
+                  {item.caption}
+                </h1>
+              </div>
               {item?.user_id == id ? (
                 <svg
                   onClick={() => {
@@ -114,12 +128,7 @@ function Cards() {
                 </svg>
               ) : null}
             </div>
-            <div className="w-full flex flex-col mt-2 justify-start items-start">
-              <h1 className="text-sm text-zinc-400 ml-3 ">345 Likes</h1>
-              <h1 className="text-md text-black-400 ml-3 mt-1 ">
-                {item.caption}
-              </h1>
-            </div>
+
           </div>
         );
       })}
