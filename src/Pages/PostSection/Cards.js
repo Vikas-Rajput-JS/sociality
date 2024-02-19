@@ -6,6 +6,7 @@ import ApiClient from "../../Apis/ApiClient";
 import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 function Cards() {
   const [blur, setblur] = useState("");
   const [Post, setPost] = useState([]);
@@ -16,14 +17,8 @@ const[data,setdata] = useState({})
   const ref = useRef(null);
   const id = localStorage.getItem("id");
   const Navigate = useNavigate();
+const user = useSelector((state)=>state?.Reducer?.user)
 
-const GetProfile = ()=>{
-  ApiClient.get('profile').then((res)=>{
-    if(res.success){
-setdata(res?.data)
-    }
-  })
-}
 
   const GetPost = () => {
     ApiClient.get("posts/allposts").then((res) => {
@@ -66,11 +61,11 @@ setdata(res?.data)
       {Post.map((item, index) => {
         return (
           <div
-            className={` ${item.id} w-full bg-white h-[74vh]   shadow-lg  flex flex-col  items-center  rounded-xl mt-5 `}
+            className={` ${item.id} w-full bg-white h-[74vh]   shadow-lg  flex flex-col  items-center  rounded-xl mt-[3vh] `}
           >
-            <div className="w-full flex mt-1 items-center">
+            <div className="w-full flex  items-center mt-1">
               <img
-                className="rounded-full  w-10 shadow-2xl  shadow-black ml-6"
+                className="rounded-full  w-10 h-10 shadow-2xl  shadow-black ml-6"
                 src={item?.addedBy?.image}
                 alt=""
               />

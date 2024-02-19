@@ -1,8 +1,17 @@
-export const LOGIN_SUCCESS = (data)=>{
-    type:"LOGIN_SUCCESS",data
-}
+import toast from "react-hot-toast";
 
+export const LOGIN_SUCCESS = (data) => {
+  return {
+    type: "LOGIN_SUCCESS",
+    payload: data,
+  };
+};
 
-export const LOGOUT_SUCCESS = ()=>{
-    type:"LOGOUT_SUCCESS"
-}
+export const LOGOUT_SUCCESS = () => {
+    localStorage.clear()
+   
+    return {
+    type: "LOGOUT_SUCCESS",
+
+  };
+};

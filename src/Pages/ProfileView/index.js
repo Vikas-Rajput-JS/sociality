@@ -5,10 +5,25 @@ import ApiClient from "../../Apis/ApiClient";
 import { Navigate, useNavigate } from "react-router";
 import LoadingBar from "react-top-loading-bar";
 import toast from "react-hot-toast";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../../Redux/Action/Action";
+import { useDispatch, useSelector } from "react-redux";
+
 function Index() {
   const [follow, setfollow] = useState(true);
   const [data, setData] = useState({});
-  const Navigate = useNavigate()
+  const history = useNavigate();
   const [AllUser, setUser] = useState([]);
   const [text, settext] = useState("All Users");
   const [section, setsection] = useState("home");
@@ -16,44 +31,53 @@ function Index() {
   const [FollowerCount, SetFollowerCount] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const Dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   const [Followers, setFollowers] = useState([]);
   const [Post, setPost] = useState([]);
   const [length, setlength] = useState(0);
   const [form, setform] = useState({});
   const ref = useRef(null);
+
+const user = useSelector((state)=>state?.Reducer?.user)
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const GetData = () => {
-    ApiClient.get("profile").then((res) => {
-      if (res.success) {
-        console.log(res);
-        setData(res?.data);
-        localStorage.setItem("id", res?.data?.id);
-      }else if(res.code==500){
-        toast.error(res.message)
-      }else{
-    toast.error(res.message)
-      }
-    });
+   
+      if(user && user.id){
+
+        setData(user);
+        
+        localStorage.setItem("id", user.id);
+       }
+    
     const GetPost = () => {
       ApiClient.get("posts/allposts").then((res) => {
         if (res.success) {
           setPost(res?.data);
           localStorage.removeItem("update");
-        }else if(res.code==500){
-            toast.error(res.message)
-          }else{
-        toast.error(res.message)
-          }
+        } else if (res.code == 500) {
+          toast.error(res.message);
+        } else {
+          toast.error(res.message);
+        }
       });
     };
     GetPost();
     ApiClient.get("getUser").then((res) => {
       if (res.success) {
-      } else if(res.code==500){
-        toast.error(res.message)
-      }else{
-    toast.error(res.message)
+      } else if (res.code == 500) {
+        toast.error(res.message);
+      } else {
+        toast.error(res.message);
       }
-      
     });
   };
   useEffect(() => {
@@ -83,12 +107,12 @@ function Index() {
       ApiClient.put("profile", { bannerImage: res?.data?.url }).then((res) => {
         if (res.success) {
           toast.success(res.message);
-        }else  if(res.code==500){
-            // Navigate('/login')
-          }else{
-            toast.error(res.message)
-          }
-         
+          Dispatch(LOGIN_SUCCESS(form))
+        } else if (res.code == 500) {
+          // Navigate('/login')
+        } else {
+          toast.error(res.message);
+        }
       });
       // toast.success("Image Uploaded Successfully");
       // toast.custom((t) => (
@@ -141,69 +165,108 @@ function Index() {
             </span>
           </a>
           <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button
-              type="button"
-              class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              id="user-menu-button"
-              aria-expanded="false"
-              data-dropdown-toggle="user-dropdown"
-              data-dropdown-placement="bottom"
+          <Box
+            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
+          >
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <Avatar
+                  src={data?.image}
+                  sx={{ width: 32, height: 32 }}
+                ></Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.5,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&::before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/profile");
+              }}
             >
-              <span class="sr-only">Open user menu</span>
-              <img
-                className="w-12 h-12 shadow-2xl shadow-black border-x-1 rounded-full"
-                src={data?.image}
-                alt=""
-              />
-            </button>
-
-            <div
-              class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-              id="user-dropdown"
+              <Avatar src={data?.image} /> Profile
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/profile");
+              }}
             >
-              <div class="px-4 py-3">
-                <span class="block text-sm text-gray-900 dark:text-white">
-                  {data?.name}
-                </span>
-                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  {data?.email}
-                </span>
-              </div>
-              <ul class="py-2" aria-labelledby="user-menu-button">
-                <li>
-                  <a
-                    href="/home"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/edit-profile"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </li>
-              </ul>
-            </div>
+              <Avatar src={data?.image} /> My account
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <PersonAdd fontSize="small" />
+              </ListItemIcon>
+              Add another account
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/edit-profile");
+              }}
+            >
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                toast.success("Logout successfuly");
+                Dispatch(LOGOUT_SUCCESS());
+                history("/login");
+              }}
+            >
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
             <button
               data-collapse-toggle="navbar-user"
               type="button"
@@ -332,11 +395,7 @@ function Index() {
           {Post?.map((itm) => {
             return (
               <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-5 mt-3">
-                <img
-                  class="w-full h-[25vh]"
-                  src={itm?.image}
-                  alt=""
-                />
+                <img class="w-full h-[25vh]" src={itm?.image} alt="" />
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">Vikas Rajput</div>
                   <p class="text-gray-700 text-base">{itm?.caption}</p>

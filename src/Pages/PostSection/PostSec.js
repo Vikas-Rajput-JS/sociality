@@ -12,26 +12,23 @@ import axios from "axios";
 import LoadingBar from "react-top-loading-bar";
 import ApiClient from "../../Apis/ApiClient";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 function PostSec() {
   const [Form, setform] = useState({});
   const [img, setimg] = useState("");
   const Navigate = useNavigate();
-
+const user = useSelector((state)=>state?.Reducer?.user)
   const ref = useRef(null);
+  console.log(user)
   useEffect(() => {
-    ApiClient.get("profile").then((res) => {
-      if (res.success) {
-        console.log(res);
-        setimg(res?.data?.image);
-        setform({ ...Form, user_id: res?.data?.id, name: res?.data?.name });
-      } else if (res.code == 500) {
-        localStorage.clear();
-        Navigate("/login");
-      } else {
-        toast.error(res.message);
-      }
-    });
-  }, []);
+    if(user){
+
+      setimg(user?.image);
+      setform({ ...Form, user_id:user.id, name: user.name });
+    }
+     
+    
+  }, [user]);
   function OpenFile() {
     document.getElementById("file_input").click();
   }

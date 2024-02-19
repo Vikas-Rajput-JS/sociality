@@ -30,21 +30,7 @@ function App() {
   const[loading,setloading]=useState(true)
   const key = localStorage.getItem('loading')
   let  token = localStorage.getItem('token')
-  const getuser = ()=>{
-  ApiClient.get('profile').then((res)=>{
-    if(res.success){
-setUser(res.data)
-    }
-  })
- }
-//  socket.emit('join_room',{name:user.name,image:user.image,id:1234})
 
- useEffect(()=>{
-  if(token){
-
-    getuser()
-  }
- },[token])
 
   
   return (

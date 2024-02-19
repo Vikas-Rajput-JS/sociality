@@ -4,31 +4,55 @@ import ApiClient from "../../Apis/ApiClient";
 import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate } from "react-router";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+import { LOGOUT_SUCCESS } from "../../Redux/Action/Action";
+import { useDispatch } from "react-redux";
 function ProfileView() {
   const [form, setform] = useState({});
   const ref = useRef(null);
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
+  const Dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   useEffect(() => {
     ref.current.staticStart();
     ApiClient.get("profile").then((res) => {
       if (res.success) {
         setform(res?.data);
-      }else{
-        toast.error(res.message)
+      } else {
+        toast.error(res.message);
       }
       ref.current.complete();
     });
   }, []);
 
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const HandleSubmit = (e) => {
     e.preventDefault();
     ApiClient.put("profile", form).then((res) => {
       if (res.success) {
         toast.success(res.message);
-      }else  if(res.code==500){
-        Navigate('/login')
-      }else{
-        toast.error(res.message)
+      } else if (res.code == 500) {
+        Navigate("/login");
+      } else {
+        toast.error(res.message);
       }
     });
   };
@@ -52,7 +76,7 @@ function ProfileView() {
 
     if (res.success) {
       ref.current.complete();
-      setform({ ...form, image: res?.data?.url });  
+      setform({ ...form, image: res?.data?.url });
       // toast.success("Image Uploaded Successfully");
       // toast.custom((t) => (
       //   <div
@@ -86,7 +110,7 @@ function ProfileView() {
 
   return (
     <>
-       <LoadingBar shadow={true} height={3} color="red" ref={ref} />
+      <LoadingBar shadow={true} height={3} color="red" ref={ref} />
       <nav class="bg-white border-gray-200 dark:bg-gray-900 absolute top-0 w-full">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
@@ -102,139 +126,108 @@ function ProfileView() {
               SociaLity
             </span>
           </a>
-          <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button
-              type="button"
-              class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              id="user-menu-button"
-              aria-expanded="false"
-              data-dropdown-toggle="user-dropdown"
-              data-dropdown-placement="bottom"
-            >
-              <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src={form?.image} alt="" />
-            </button>
-
-            <div
-              class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-              id="user-dropdown"
-            >
-              <div class="px-4 py-3">
-                <span class="block text-sm text-gray-900 dark:text-white">
-                  {form?.name}
-                </span>
-                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  {form?.email}
-                </span>
-              </div>
-              <ul class="py-2" aria-labelledby="user-menu-button">
-                <li>
-                  <a
-                    href="/home"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button
-              data-collapse-toggle="navbar-user"
-              type="button"
-              class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="navbar-user"
-              aria-expanded="false"
-            >
-              <span class="sr-only">Open main menu</span>
-              <svg
-                class="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-          </div>
-          <div
-            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-user"
+          <Box
+            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                  aria-current="page"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+            <Tooltip title="Profile">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <Avatar
+                  src={form?.image}
+                  sx={{ width: 32, height: 32 }}
+                ></Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.5,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&::before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                Navigate("/profile");
+              }}
+            >
+              <Avatar src={form?.image} /> Profile
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                Navigate("/home");
+              }}
+            >
+              <Avatar src={form?.image} /> Home
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <PersonAdd fontSize="small" />
+              </ListItemIcon>
+              Add another account
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                Navigate("/edit-profile");
+              }}
+            >
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                toast.success("Logout successfuly");
+                Dispatch(LOGOUT_SUCCESS());
+                Navigate("/login");
+              }}
+            >
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </div>
       </nav>
       <div className="flex w-[100%] justify-center items-center">
@@ -309,19 +302,17 @@ function ProfileView() {
                         type="number"
                         name="phoneNumber"
                         id="phoneNumber"
-               
                         maxlength="12"
                         onInput={(object) => {
-                            if (
-                              object.target.value.length >
+                          if (
+                            object.target.value.length > object.target.maxLength
+                          ) {
+                            object.target.value = object.target.value.slice(
+                              0,
                               object.target.maxLength
-                            ) {
-                              object.target.value = object.target.value.slice(
-                                0,
-                                object.target.maxLength
-                              );
-                            }
-                          }}
+                            );
+                          }
+                        }}
                         placeholder="+990 3343 7865"
                         defaultValue="+990 3343 7865"
                         onChange={(e) => {
@@ -403,7 +394,7 @@ function ProfileView() {
                   <div className="flex justify-end gap-4.5">
                     <button
                       className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                    type="reset"
+                      type="reset"
                     >
                       Cancel
                     </button>
@@ -436,14 +427,20 @@ function ProfileView() {
                         Edit your photo
                       </span>
                       <span className="flex gap-2.5 cursor-pointer">
-                        <p className="text-sm hover:text-primary" onClick={()=>{
-                            setform({...form,image:''})
-                        }}>
+                        <p
+                          className="text-sm hover:text-primary"
+                          onClick={() => {
+                            setform({ ...form, image: "" });
+                          }}
+                        >
                           Delete
                         </p>
-                        <p className="text-sm hover:text-primary cursor-pointer" onClick={()=>{
-                            document.getElementById('image_Input').click()
-                        }}>
+                        <p
+                          className="text-sm hover:text-primary cursor-pointer"
+                          onClick={() => {
+                            document.getElementById("image_Input").click();
+                          }}
+                        >
                           Update
                         </p>
                       </span>
@@ -455,11 +452,11 @@ function ProfileView() {
                     className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5"
                   >
                     <input
-                    id="image_Input"    
+                      id="image_Input"
                       type="file"
                       accept="image/*"
-                      onChange={(e)=>{
-                        SubmitImage(e)
+                      onChange={(e) => {
+                        SubmitImage(e);
                       }}
                       className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                     />
@@ -503,9 +500,8 @@ function ProfileView() {
 
                   <div className="flex justify-end gap-4.5 mt-5">
                     <button
-                    type="reset"
+                      type="reset"
                       className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                  
                     >
                       Cancel
                     </button>

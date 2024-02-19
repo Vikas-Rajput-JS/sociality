@@ -8,6 +8,8 @@ import Stripe from "stripe";
 
 import io from 'socket.io-client'
 import GooglePayButton from "@google-pay/button-react";
+import { useDispatch } from "react-redux";
+import { LOGIN_SUCCESS } from "../../Redux/Action/Action";
 const stripe = new Stripe('sk_test_51OSDFOSJXboQazN3q61A2OoN8LwK4MEnOj23goQPUYRqOczFSJtqwQDuSGxCsctOypjQ09Qd0tKKE3USGDnnrrZp009TNkOSks')
 function Login() {
   const ConnectSocket = () => {
@@ -22,6 +24,7 @@ function Login() {
   const Navigate = useNavigate();
   const token = localStorage.getItem("token");
   const ref = useRef(null);
+const Dispatch = useDispatch()
 
 
   useEffect(() => {
@@ -109,24 +112,7 @@ function Login() {
             <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-700 dark:border-gray-700">
               <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1
-                //  onClick={async()=>{
-                //   const session = await stripe.checkout.sessions.create({
-                //     line_items: [
-                //       {
-  
-                //         price: 'price_1OSDIQSJXboQazN3qDBE9CkV',
-                //         quantity: 1,
-                //       },
-                //     ],
-                //     mode: 'subscription',
-                //     success_url: 'http://localhost:8053/next',
-                //     cancel_url: 'http://localhost:8053',
-                //   });
-                //   if(session){
-                //     window.location = session.url
-                //   }
-                //   console.log(session)
-                // }}
+               
                 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Sign in to your account
                 </h1>

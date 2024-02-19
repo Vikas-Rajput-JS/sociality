@@ -5,12 +5,16 @@ import ApiClient from "../../Apis/ApiClient";
 import { Navigate, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../../Redux/Action/Action";
+
 function Profile() {
   const [follow, setfollow] = useState(true);
   const [data, setData] = useState({});
   const [AllUser, setUser] = useState([]);
   const [text, settext] = useState("All Users");
   const [section, setsection] = useState("home");
+
   const [FollowingCount, setFolwingCount] = useState("");
   const [FollowerCount, SetFollowerCount] = useState("");
   const navigate = useNavigate();
@@ -18,11 +22,15 @@ function Profile() {
   const [Followers, setFollowers] = useState([]);
   const ref = useRef(null);
   const [length, setlength] = useState(0);
+  const Dispatch = useDispatch()
+const user = useSelector((state)=>state?.Reducer?.user)
+console.log(user)
   const GetData = () => {
     ref.current.staticStart();
     ApiClient.get("profile").then((res) => {
       if (res.success) {
         console.log(res);
+        Dispatch(LOGIN_SUCCESS(res?.data))
         setData(res?.data);
 
         localStorage.setItem("id", res?.data?.id);
@@ -68,7 +76,7 @@ function Profile() {
             src={data?.image}
             alt=""
             onClick={()=>{
-              navigate('/chat')
+              // navigate('/chat')
             }}
           />
         </button>
@@ -117,8 +125,10 @@ function Profile() {
           <div class="py-2">
             <button
               onClick={() => {
-                localStorage.clear();
+                // localStorage.clear();
+                 Dispatch(LOGOUT_SUCCESS())
                 navigate("/login");
+                toast.success('Logout successfuly')
               }}
               class="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
             >

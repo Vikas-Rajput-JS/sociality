@@ -66,21 +66,23 @@ function SendOtp() {
 
                 <div class="flex flex-col space-y-5 justify-center">
                   <div>
-                    <button class="flex flex-row items-center justify-center text-center w-[70%] ml-16 border rounded-xl outline-none py-3 bg-blue-700 border-none text-white text-sm shadow-sm">
+                    <button type="submit" class="flex flex-row items-center justify-center text-center w-[70%] ml-16 border rounded-xl outline-none py-3 bg-blue-700 border-none text-white text-sm shadow-sm">
                       Send OTP
                     </button>
                   </div>
 
                   <div class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                     <p>Remembered Password ?</p>{" "}
-                    <button
-                      class="flex flex-row items-center text-blue-600"
-                      href="http:/login"
-                      target="_blank"
+                    <p onClick={()=>{
+                      navigate('/login')
+                    }}
+                      class="flex flex-row items-center text-blue-600 cursor-pointer hover:underline"
+                    
+                      
                       rel="noopener noreferrer"
                     >
                       Log In
-                    </button>
+                    </p>
                   </div>
                 </div>
               </div>

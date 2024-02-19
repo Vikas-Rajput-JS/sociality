@@ -3,9 +3,20 @@ import { CiSearch } from "react-icons/ci";
 import Logo from "../TrendingPage/Dev-logo.jpg";
 import { SlSettings } from "react-icons/sl";
 import { IoMdCloudUpload } from "react-icons/io";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 // import Swal from 'sweetalert2/dist/sweetalert2.js'
-
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 
 import { HiHome } from "react-icons/hi";
 import { GrSnapchat } from "react-icons/gr";
@@ -14,31 +25,34 @@ import { useNavigate } from "react-router";
 import ApiClient from "../../Apis/ApiClient";
 import toast from "react-hot-toast";
 import LoadingBar from "react-top-loading-bar";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGOUT_SUCCESS } from "../../Redux/Action/Action";
 export default function TrendingSec() {
   // const Navigate = useNavigate()
   const history = useNavigate();
   const ref = useRef(null);
-
+  const Dispatch = useDispatch();
   const [data, setData] = useState({});
   const [Story, setStory] = useState([]);
   const [Form, setform] = useState({ title: "New Story" });
+  const [anchorEl, setAnchorEl] = useState(null);
+  const user = useSelector((state) => state?.Reducer?.user);
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const GetData = () => {
-    ApiClient.get("profile").then((res) => {
-      if (res.success) {
-        console.log(res);
-        setData(res?.data);
-        // localStorage.setItem("id", res?.data?.id);
-      } else if (res.code == 500) {
-        // localStorage.clear()
-        // history('/login')
-      } else {
-        toast.error(res.message);
-      }
-    });
+    if (user && user?.id) {
+      setData(user);
+    }
   };
   useEffect(() => {
     GetData();
-  }, []);
+  }, [user]);
   const Users = [
     {
       id: 1,
@@ -164,73 +178,111 @@ export default function TrendingSec() {
             id="StoryInput"
             onChange={SubmitImage}
           />
-          <button
-            id="dropdownUserAvatarButton"
-            data-dropdown-toggle="dropdownAvatar"
-            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            type="button"
+          <Box
+            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
-            <span class="sr-only">Open user menu</span>
-            <img
-              class="w-8 h-8 rounded-full"
-              src={data?.image}
-              alt=""
-            />
-          </button>
-
-          <div
-            id="dropdownAvatar"
-            class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-          >
-            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-              <div>{data?.name}</div>
-              <div class="font-medium truncate">{data?.email}</div>
-            </div>
-            <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200 z-10"
-              aria-labelledby="dropdownUserAvatarButton"
-            >
-              <li>
-                <button
-                  onClick={() => {
-                    history("/change-password");
-                  }}
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Change Password
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    history("/edit-profile");
-                  }}
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Settings
-                </button>
-              </li>
-              <li>
-                <a
-                  href="/plans"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Plans
-                </a>
-              </li>
-            </ul>
-            <div class="py-2">
-              <button
-                onClick={() => {
-                  localStorage.clear();
-                  history("/login");
-                }}
-                class="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
               >
-                Sign out
-              </button>
-            </div>
-          </div>
+                <Avatar
+                  src={data?.image}
+                  sx={{ width: 32, height: 32 }}
+                ></Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.5,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&::before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/profile");
+              }}
+            >
+              <Avatar src={data?.image} /> Profile
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/profile");
+              }}
+            >
+              <Avatar src={data?.image} /> My account
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <PersonAdd fontSize="small" />
+              </ListItemIcon>
+              Add another account
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                history("/edit-profile");
+              }}
+            >
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                toast.success("Logout successfuly");
+                Dispatch(LOGOUT_SUCCESS());
+                history("/login");
+              }}
+            >
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+
+          {/* <!-- Dropdown menu --> */}
+
           <HiHome className="cursor-pointer" size={25} color="yellow" />
           {/* <SlSettings className="cursor-pointer" size={25} /> */}
           <GrSnapchat className="cursor-pointer" size={25} color="yellow" />
@@ -267,20 +319,26 @@ export default function TrendingSec() {
                       />
                     </div>
                     <div class="flex-1 min-w-0 ms-4">
-                      <p  class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        {Story?.some((itm) => itm?.addedBy?.id == data?.id)
-                          ? <p className="cursor-pointer" onClick={()=>{
-                            Swal.fire({
-                            
-                              // title: "Sweet!",
-                              text: Story[0]?.title,
-                              imageUrl: Story[0]?.image,
-                              imageWidth: 400,
-                              imageHeight: 200,
-                              imageAlt: ""
-                            });
-                          }}>View Story</p>
-                          : <p>Share Story</p>}
+                      <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                        {Story?.some((itm) => itm?.addedBy?.id == data?.id) ? (
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => {
+                              Swal.fire({
+                                // title: "Sweet!",
+                                text: Story[0]?.title,
+                                imageUrl: Story[0]?.image,
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: "",
+                              });
+                            }}
+                          >
+                            View Story
+                          </p>
+                        ) : (
+                          <p>Share Story</p>
+                        )}
                       </p>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -312,23 +370,25 @@ export default function TrendingSec() {
                               />
                             </div>
                             <div class="flex-1 min-w-0 ms-4">
-                              <p onClick={()=>{
-                        Swal.fire({
-                          title: "Sweet!",
-                          text: "Modal with a custom image.",
-                          imageUrl: itm?.image,
-                          imsageWidth: 400,
-                          imageHeight: 200,
-                          imageAlt: ""
-                        });
-                      }} class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                              {itm?.title}
+                              <p
+                                onClick={() => {
+                                  Swal.fire({
+                                  
+                                   
+                                    imageUrl: itm?.image,
+                                    imsageWidth: 400,
+                                    imageHeight: 200,
+                                    imageAlt: "",
+                                  });
+                                }}
+                                class="text-sm font-medium text-gray-900 truncate dark:text-white"
+                              >
+                                {itm?.title}
                               </p>
-                             
                             </div>
-                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                            {/* <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                               $320
-                            </div>
+                            </div> */}
                           </div>
                         </li>
                       )}

@@ -1,18 +1,20 @@
-let InitialState= {
-    user:[],
-    loggedIn:false
-}
+let InitialState = {
+  user: {},
+  loggedIn: false,
+};
 
-export default function UserReducer(state=InitialState,action){
-            switch (action.type) {
-                case 'LOGIN_SUCCESS':
-                    return {...state,...{loggedIn:true},...action.data}
-                    break;
+export function Reducer (state = InitialState, action){
+  switch (action.type) {
+    case "LOGIN_SUCCESS":
+      return {user:action.payload,loggedIn:true};
+      break;
 
-                case "LOGOUT_SUCCESS":
-                return InitialState;
-                default:
-                    return InitialState
-                    break;
-            }
-}
+    case "LOGOUT_SUCCESS":
+      return InitialState;
+    default:
+      return InitialState;
+      break;
+  }
+};
+
+
