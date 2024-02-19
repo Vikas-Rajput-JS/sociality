@@ -17,14 +17,14 @@ var config = {
     headers: { 'Content-Type': 'application/json' },
 };
 var imageUrl = 'https://api.imgbb.com/1/upload?expiration=600&key=81e51e4b5abab8382e2f6561ba765ef8'
-var baseUrl = environment.localUrl
+var baseUrl = environment.apiUrl
 
 
 const handleError = (err, hideError) => {
     let message = ''
     if (err) {
         if (err && err.error && err.error.code == 401) {
-            localStorage.removeItem("persist:admin-app")
+            // localStorage.removeItem("persist:admin-app")
             localStorage.removeItem("token")
             // methodModel.route('/')
         }
@@ -32,7 +32,10 @@ const handleError = (err, hideError) => {
         if (!message) message = err.message
         if (!message) message = 'Server Error'
     }
-    if (!hideError) toast.error(message);
+    if (!hideError){
+        
+    }
+    //  toast.error(message);
 }
 
 class ApiClient {

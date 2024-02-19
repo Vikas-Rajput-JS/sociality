@@ -4,14 +4,28 @@ import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import ApiClient from "../../Apis/ApiClient";
 import LoadingBar from "react-top-loading-bar";
+import Stripe from "stripe";
+
+import io from 'socket.io-client'
+import GooglePayButton from "@google-pay/button-react";
+const stripe = new Stripe('sk_test_51OSDFOSJXboQazN3q61A2OoN8LwK4MEnOj23goQPUYRqOczFSJtqwQDuSGxCsctOypjQ09Qd0tKKE3USGDnnrrZp009TNkOSks')
 function Login() {
+  const ConnectSocket = () => {
+
+    const socket = io.connect('http://localhost:3000')
+    if (socket) {
+
+    }
+  }
   const [eye, setEye] = useState("password");
   const [form, setform] = useState({});
   const Navigate = useNavigate();
   const token = localStorage.getItem("token");
   const ref = useRef(null);
 
+
   useEffect(() => {
+    // ConnectSocket()
     ref.current.staticStart();
     ref.current.complete();
   }, []);
@@ -27,7 +41,7 @@ function Login() {
     ApiClient.post("login", form).then((res) => {
       if (res?.success) {
         ref.current.complete();
-        // toast.success(res.message);
+        toast.success(res.message);
 
         localStorage.setItem("token", res?.token);
 
@@ -39,28 +53,128 @@ function Login() {
     });
   };
 
+  const paymentRequest = {
+    apiVersion: 2,
+    apiVersionMinor: 0,
+    allowedPaymentMethods: [
+        {
+            type: "CARD",
+            parameters: {
+                allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                allowedCardNetworks: ["MASTERCARD", "VISA"]
+            },
+            tokenizationSpecification: {
+                type: "PAYMENT_GATEWAY",
+                parameters: {
+                    gateway: "stripe",
+                    "stripe:version": "2023-10-16",
+                    "stripe:publishableKey": "pk_test_51OSDFOSJXboQazN3RHWUS6CjxDIMbb6RPIMTBZWgmcZPIDRsefXnrEwXzZufUi4aI09iH5gsh1lbCTVZnsd4K0Ld00kOpk53d7"
+                }
+            }
+        }
+    ],
+    merchantInfo: {
+        merchantId: "BCR2DN4TZK2JD4Q2",
+        merchantName: "Demo Merchant"
+    },
+    transactionInfo: {
+        totalPriceStatus: "FINAL",
+        totalPriceLabel: "Total",
+        totalPrice: "499",
+        currencyCode: "USD",
+        countryCode: "US"
+    },
+    shippingAddressRequired: true,
+    callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION'],
+
+};
+
   return (
     <>
       <div className="w-full h-screen flex justify-center items-center">
-      <LoadingBar shadow={true} height={3} color="yellow" ref={ref} />
+        <LoadingBar shadow={true} height={3} color="yellow" ref={ref} />
         <section class="bg-gray-900 dark:bg-gray-900 w-full">
           <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a
-              href="#"
+            <button
+              
               class="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white"
             >
               <img
-                class="w-8 h-8 mr-2"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                alt="logo"
+                class="w-12 h-12 mr-2 rounded-full"
+                src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
+                alt=""
               />
-              CodeDera
-            </a>
+              SociaLity
+            </button>
             <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-700 dark:border-gray-700">
               <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                <h1
+                //  onClick={async()=>{
+                //   const session = await stripe.checkout.sessions.create({
+                //     line_items: [
+                //       {
+  
+                //         price: 'price_1OSDIQSJXboQazN3qDBE9CkV',
+                //         quantity: 1,
+                //       },
+                //     ],
+                //     mode: 'subscription',
+                //     success_url: 'http://localhost:8053/next',
+                //     cancel_url: 'http://localhost:8053',
+                //   });
+                //   if(session){
+                //     window.location = session.url
+                //   }
+                //   console.log(session)
+                // }}
+                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Sign in to your account
                 </h1>
+                {/* <GooglePayButton
+                                                                environment="TEST"
+                                                                onPaymentAuthorized={paymentData => {
+
+                                                                    // SetPaymentInfo(paymentData)
+                                                                    console.log('Payment Authorised Success', paymentData)
+                                                                    console.log(paymentData, "================")
+                                                                    // Parse the JSON string
+                                                                    // let JsonString = paymentData?.paymentMethodData?.tokenizationData?.token
+                                                                    // const decodedData = JSON.parse(JsonString);
+                                                                    // console.log(decodedData)
+                                                                    // Access the properties
+                                                                    // setTokenID(decodedData.id)
+
+                                                                    // ApiClient.post('payment/create-google-intent', {
+                                                                    //     googlePayToken: decodedData.id,
+                                                                    //     amount: form?.price,
+                                                                    //     currency: "USD",
+                                                                    //     user_id: user.id,
+                                                                    //     plan_id: form?.plan_id
+                                                                    // }).then((res) => {
+                                                                    //     if (res.success) {
+                                                                    //         toast.success(res.message)
+                                                                    //         setTimeout(() => {
+
+                                                                    //             history.push('payment-success')
+                                                                    //         }, 1000);
+                                                                    //     }
+                                                                    // })
+
+
+                                                                    return { transactionState: 'SUCCESS' }
+                                                                }
+                                                                }
+                                                                onPaymentDataChanged={paymentData => {
+                                                                    console.log('On Payment Data Changed', paymentData)
+
+                                                                    return {}
+                                                                }
+                                                                }
+                                                                paymentRequest={paymentRequest}
+                                                                onLoadPaymentData={paymentRequest => {
+                                                                    console.log('load payment data', paymentRequest);
+                                                                }}
+                                                            /> */}
                 <form class="space-y-4 md:space-y-6" onSubmit={HandleSubmit}>
                   <div>
                     <label
@@ -70,7 +184,7 @@ function Login() {
                       Your Email
                     </label>
                     <input
-                    required
+                      required
                       value={form?.email}
                       onChange={(e) => {
                         setform({ ...form, email: e.target.value });
@@ -80,7 +194,7 @@ function Login() {
                       id="email"
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
-                     
+
                     />
                   </div>
                   <div>
@@ -211,7 +325,7 @@ function Login() {
             alt=""
           />
         </div>
-      
+
       </div>
     </>
   );

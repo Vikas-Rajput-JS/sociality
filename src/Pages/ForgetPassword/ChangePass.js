@@ -94,7 +94,7 @@ console.log(form)
                                     </div>
 
                                     <div class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
-                                        <p>Remembered Password ?</p> <a class="flex flex-row items-center text-blue-600" href="http:/login" target="_blank" rel="noopener noreferrer">Log In</a>
+                                        <p>Remembered Password ?</p> <a class="flex flex-row items-center text-blue-600" href="/login"  rel="noopener noreferrer">Log In</a>
                                     </div>
                                 </div>
                             </div>

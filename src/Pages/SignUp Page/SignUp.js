@@ -47,8 +47,11 @@ const HandleSubmit = (e)=>{
       <section class="bg-gray-900 dark:bg-gray-900 w-full h-screen">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white">
-            <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-            CodeDera
+          <img
+                class="w-12 h-12 mr-2 rounded-full"
+                src="https://ih1.redbubble.net/image.2386420274.5433/st,small,507x507-pad,600x600,f8f8f8.jpg"
+                alt=""
+              />            SociaLity
           </a>
           <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -96,11 +99,11 @@ const HandleSubmit = (e)=>{
                 </div>
                 <button type="submit" class="w-full bg-yellow-400 py-1 px-1 font-semibold hover:bg-yellow-500 rounded-md shadow-lg">Create an account</button>
                 <p class="text-sm  text-gray-900 dark:text-gray-400">
-                  Already have an account? <a  class="font-medium cursor-pointer text-black hover:underline dark:text-primary-500" onClick={()=>{
+                  Already have an account? <button  class="font-medium cursor-pointer text-black hover:underline dark:text-primary-500" onClick={()=>{
                     ref.current.staticStart()
                     Navigate('/login')
                     ref.current.complete()
-                  }}>Login here</a>
+                  }}>Login here</button>
                 </p>
               </form>
             </div>

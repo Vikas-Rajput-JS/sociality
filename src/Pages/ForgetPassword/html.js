@@ -104,13 +104,13 @@ setTimeout(() => {
 
                   <div class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                     <p>Didn't recieve code?</p>{" "}
-                    <a
+                    <button
                       class="flex cursor-pointer flex-row items-center text-blue-600"
                       rel="noopener noreferrer"
                       onClick={RsendOTP}
                     >
                       Resend
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
