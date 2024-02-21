@@ -101,9 +101,9 @@ const CreateCheckout = async()=>{
       </h1>
       <div className="w-[100%] h-[90vh] flex justify-around items-center">
         {Plan &&
-          Plan.map((itm) => {
+          Plan.map((itm,i) => {
             return (
-              <div class="w-80 p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-800">
+              <div key={i} class="w-80 p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-800">
                 <p class="mb-4 text-xl font-medium text-gray-800 dark:text-gray-50" onClick={()=>{
                   CreateCheckout()
                 }}>

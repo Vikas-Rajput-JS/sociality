@@ -97,9 +97,9 @@ function Chat({ socket, room }) {
                     </div>
                   </div>
                   {Received &&
-                    Received.map((itm) => {
+                    Received.map((itm,i) => {
                       return (
-                        <div class="col-start-1 col-end-8 p-3 rounded-lg">
+                        <div key={i} class="col-start-1 col-end-8 p-3 rounded-lg">
                           <div class="flex flex-row items-center">
                             <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                               {/* {itm.user.split('')[0]} */}
